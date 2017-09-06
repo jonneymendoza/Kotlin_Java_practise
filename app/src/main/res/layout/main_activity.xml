@@ -1,0 +1,29 @@
+<?xml version="1.0" encoding="utf-8"?>
+<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <include
+        android:id="@+id/slideMenu"
+        layout="@layout/slide_menu"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent" />
+
+    <!--<TextView-->
+    <!--style="@style/Base.TextAppearance.AppCompat.Headline"-->
+    <!--android:layout_width="wrap_content"-->
+    <!--android:layout_height="wrap_content"-->
+    <!--android:layout_gravity="center"-->
+    <!--android:layout_margin="@dimen/default_margin_text"-->
+    <!--android:text="Welcome to my App" />-->
+
+    <LinearLayout
+        android:id="@+id/main_content_view"
+        android:orientation="vertical"
+        android:layout_height="match_parent"
+        android:layout_width="match_parent">
+
+    </LinearLayout>
+
+</FrameLayout>
