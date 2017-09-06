@@ -12,7 +12,6 @@ import com.jr.app.R
 import com.jr.app.models.ExampleData
 import com.jr.app.network.RestService
 import kotlinx.android.synthetic.main.add_user_layout.*
-import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
 import okhttp3.Response
