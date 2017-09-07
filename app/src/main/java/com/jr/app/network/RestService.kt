@@ -22,9 +22,9 @@ class RestService : RestServiceInterface {
 
     val password: String = "07aa135d-2db9-46af-bfa3-54f174215aa5"
 
-    var callbackResponse: Callback<Response>? = null
+    var callbackResponse: Callback<ResponseBody>? = null
 
-    public fun addNewUserService(user: ExampleData, callback: Callback<Response>) {
+    public fun addNewUserService(user: ExampleData, callback: Callback<ResponseBody>) {
         callbackResponse = callback;
         addUser(user)
 
@@ -42,7 +42,7 @@ class RestService : RestServiceInterface {
                         .create())
                 .build()
         val userService = retrofit.create(UsersService::class.java);
-        userService.addUser(user).enqueue(callbackResponse);
+        userService.addUser(user).enqueue(callbackResponse)
 
     }
 

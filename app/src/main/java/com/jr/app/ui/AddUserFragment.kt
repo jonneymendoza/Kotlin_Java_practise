@@ -14,7 +14,9 @@ import com.jr.app.network.RestService
 import kotlinx.android.synthetic.main.add_user_layout.*
 import retrofit2.Call
 import retrofit2.Callback
-import okhttp3.Response
+import okhttp3.ResponseBody
+import retrofit2.Response
+import java.util.*
 
 
 /**
@@ -27,11 +29,11 @@ class AddUserFragment : Fragment() {
     private var contentView: ViewGroup? = null
 
 
-    inner class CallBack : Callback<Response> {
-        override fun onResponse(call: Call<Response>?, response: Response<Response>?) {
+    inner class CallBackAdd : Callback<ResponseBody> {
+        override fun onResponse(call: Call<ResponseBody>?, response: Response<ResponseBody>?) {
 //            val snackbar: Snackbar = Snackbar.make(contentView)
-            Log.d("jjj", " response is " + response.body.toString)
-            if(response.code == 200){
+            Log.d("jjj", " response is " + response.toString())
+            if(response != null && response.code() == 200){
                 showToastMessage()
             }else{
 
@@ -39,7 +41,7 @@ class AddUserFragment : Fragment() {
 
         }
 
-        override fun onFailure(call: Call<Response>?, t: Throwable?) {
+        override fun onFailure(call: Call<ResponseBody>?, t: Throwable?) {
             TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
         }
     }
@@ -63,7 +65,7 @@ class AddUserFragment : Fragment() {
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         add_user_button.setOnClickListener {
-            RestService().addNewUserService(getData(), CallBack()) }
+            RestService().addNewUserService(getData(), CallBackAdd()) }
 
     }
 
@@ -73,7 +75,7 @@ class AddUserFragment : Fragment() {
         examplePics.add("EXAMPLEPIC_BASE_64 IT WILL BE")
         examplePics.add("another one!!!")
 
-        return ExampleData("", first_name_text.text.toString(),
+        return ExampleData(UUID.randomUUID().toString(), first_name_text.text.toString(),
                 second_name_text.text.toString(),
                 examplePics,
                 info_txt.text.toString())

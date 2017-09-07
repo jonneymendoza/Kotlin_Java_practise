@@ -19,6 +19,6 @@ interface UsersService {
     fun getAllUsers(): Call<List<ExampleData>>
 
     @POST("usersProfile")
-    fun addUser(@Body exampleData: ExampleData): Call<Response>
+    fun addUser(@Body exampleData: ExampleData): Call<ResponseBody>
 
 }
