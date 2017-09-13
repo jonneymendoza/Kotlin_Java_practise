@@ -24,15 +24,24 @@ class RestService : RestServiceInterface {
 
     var callbackResponse: Callback<ResponseBody>? = null
 
-    public fun addNewUserService(user: ExampleData, callback: Callback<ResponseBody>) {
+     fun addNewUserService(user: ExampleData, callback: Callback<ResponseBody>) {
         callbackResponse = callback;
         addUser(user)
 
     }
 
+    override fun getAllUsers(callbackResponse: Callback<List<ExampleData>>) {
+        var listOfUsers: MutableList<ExampleData> = mutableListOf<ExampleData>()
 
-    override fun getAllUsers(): List<ExampleData> {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        val retrofit = Retrofit.Builder().baseUrl(BuildConfig.DEMO_SERVER_URL)
+                .client(httpAuthClient)
+                .addConverterFactory(GsonConverterFactory
+                        .create())
+                .build()
+
+        val userServoce = retrofit.create(UsersService::class.java)
+        userServoce.getAllUsers().enqueue(callbackResponse)
+
     }
 
     override fun addUser(user: ExampleData) {
@@ -43,7 +52,6 @@ class RestService : RestServiceInterface {
                 .build()
         val userService = retrofit.create(UsersService::class.java);
         userService.addUser(user).enqueue(callbackResponse)
-
     }
 
     private val httpAuthClient: OkHttpClient
