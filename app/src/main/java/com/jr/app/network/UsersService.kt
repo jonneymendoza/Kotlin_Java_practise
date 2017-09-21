@@ -16,7 +16,7 @@ import retrofit2.http.POST
 interface UsersService {
 
     @GET("usersProfile")
-    fun getAllUsers(): Call<List<ExampleData>>
+    fun getAllUsers(): Call<MutableList<ExampleData>>
 
     @POST("usersProfile")
     fun addUser(@Body exampleData: ExampleData): Call<ResponseBody>

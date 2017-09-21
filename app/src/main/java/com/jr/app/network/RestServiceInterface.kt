@@ -9,5 +9,5 @@ import retrofit2.Callback
 
 interface  RestServiceInterface{
     fun addUser(user: ExampleData)
-    fun getAllUsers(callback: Callback<List<ExampleData>>)
+    fun getAllUsers(callback: Callback<MutableList<ExampleData>>)
 }

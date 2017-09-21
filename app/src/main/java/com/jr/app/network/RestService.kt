@@ -30,9 +30,7 @@ class RestService : RestServiceInterface {
 
     }
 
-    override fun getAllUsers(callbackResponse: Callback<List<ExampleData>>) {
-        var listOfUsers: MutableList<ExampleData> = mutableListOf<ExampleData>()
-
+    override fun getAllUsers(callbackResponse: Callback<MutableList<ExampleData>>) {
         val retrofit = Retrofit.Builder().baseUrl(BuildConfig.DEMO_SERVER_URL)
                 .client(httpAuthClient)
                 .addConverterFactory(GsonConverterFactory

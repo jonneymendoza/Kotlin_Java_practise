@@ -1,10 +1,10 @@
 package com.jr.app.ui
 
-import android.app.Fragment
-import android.content.Context
+import android.app.ProgressDialog
 import android.os.Bundle
+import android.support.v4.app.Fragment
 import android.support.v7.widget.LinearLayoutManager
-import android.support.v7.widget.RecyclerView
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -20,19 +20,27 @@ import retrofit2.Response
 /**
  * Created by Jonathan on 11/09/2017.
  */
-class ShowAllUserList : Fragment() {
+class ShowAllUserListFragment : Fragment() {
 
-    var listUsers : List<ExampleData>? = null
+    var listUsers: MutableList<ExampleData> = mutableListOf<ExampleData>()
 
-    inner class CallbackAllUsers : Callback<List<ExampleData>> {
-        override fun onFailure(call: Call<List<ExampleData>>?, t: Throwable?) {
+    var pd: ProgressDialog? = null
+
+    var adapter: UserListAdapter? = null
+
+    inner class CallbackAllUsers : Callback<MutableList<ExampleData>> {
+        override fun onFailure(call: Call<MutableList<ExampleData>>?, t: Throwable?) {
             TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
         }
 
-        override fun onResponse(call: Call<List<ExampleData>>?, response: Response<List<ExampleData>>?) {
-            TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+        override fun onResponse(call: Call<MutableList<ExampleData>>?, response: Response<MutableList<ExampleData>>?) {
+            if (response != null) {
+                pd!!.dismiss()
+                listUsers.clear()
+                listUsers.addAll(response.body()!!)
+                adapter!!.notifyDataSetChanged()
+            }
         }
-
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -41,18 +49,22 @@ class ShowAllUserList : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
-        var view: View = inflater.inflate(R.layout.add_user_layout, null)
-        return view;
+        var view: View = inflater.inflate(R.layout.list_view_screen, null)
+        return view
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {
         super.onActivityCreated(savedInstanceState)
         recyclerView.layoutManager = LinearLayoutManager(activity.applicationContext)
-        recyclerView.adapter = UserListAdapter(listUsers!!)
-
+        adapter = UserListAdapter(listUsers)
+        recyclerView.adapter = adapter
+        getListOfUsers()
     }
 
-    private fun getListOfUsers(){
+    private fun getListOfUsers() {
+        pd = ProgressDialog(activity)
+        pd!!.setMessage("Loading users list")
+        pd!!.show()
         RestService().getAllUsers(CallbackAllUsers())
     }
 

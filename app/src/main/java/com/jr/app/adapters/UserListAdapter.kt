@@ -12,7 +12,6 @@ import kotlinx.android.synthetic.main.user_list_item.view.*
 /**
  * Created by Jonathan on 12/09/2017.
  */
-
 class UserListAdapter : RecyclerView.Adapter<UserListAdapter.ViewHolder> {
 
     var userListItems: List<ExampleData>? = null
@@ -29,6 +28,7 @@ class UserListAdapter : RecyclerView.Adapter<UserListAdapter.ViewHolder> {
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val userData = userListItems!![position]
         holder.firstName!!.text = userData.firstName
+        holder.surnName!!.text = userData.secondName
     }
 
     override fun getItemCount(): Int {

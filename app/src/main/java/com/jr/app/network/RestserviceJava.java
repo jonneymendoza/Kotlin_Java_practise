@@ -11,6 +11,7 @@ import okhttp3.Credentials;
 import okhttp3.Interceptor;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
+import retrofit2.Callback;
 
 /**
  * Created by jonathanrichards on 01/08/2017.
@@ -22,12 +23,6 @@ public class RestserviceJava implements RestServiceInterface {
     @Override
     public void addUser(@NotNull ExampleData user) {
 
-    }
-
-    @NotNull
-    @Override
-    public List<ExampleData> getAllUsers() {
-        return null;
     }
 
 
@@ -48,5 +43,10 @@ public class RestserviceJava implements RestServiceInterface {
         hello = "dsadsadsa";
 
         return okHttpClient;
+    }
+
+    @Override
+    public void getAllUsers(@NotNull Callback<List<ExampleData>> callback) {
+
     }
 }
