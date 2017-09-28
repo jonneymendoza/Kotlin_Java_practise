@@ -59,6 +59,7 @@ class ShowAllUserListFragment : Fragment() {
         adapter = UserListAdapter(listUsers)
         recyclerView.adapter = adapter
         getListOfUsers()
+//        Fragment().showS
     }
 
     private fun getListOfUsers() {

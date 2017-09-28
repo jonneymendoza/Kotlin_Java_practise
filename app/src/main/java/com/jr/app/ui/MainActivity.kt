@@ -1,7 +1,9 @@
 package com.jr.app.ui
 
 import android.os.Bundle
+import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentActivity
+import android.support.v4.view.GravityCompat
 import com.jr.app.R
 import com.jr.app.presenters.interfaces.UserPresenter
 import kotlinx.android.synthetic.main.main_activity.*
@@ -17,27 +19,27 @@ class MainActivity:UserPresenter, FragmentActivity() {
     }
 
     override fun addNewUser() {
-//        if(drawerLayoutContent.isDrawerOpen(GravityCompat.START)){
-//            drawerLayoutContent.closeDrawers()
-//        }
+        if(drawerLayoutContent.isDrawerOpen(GravityCompat.START)){
+            drawerLayoutContent.closeDrawers()
+        }
 
-        val beginTransaction = supportFragmentManager.beginTransaction()
-        beginTransaction.replace(main_content_view.id, AddUserFragment())
-        beginTransaction.addToBackStack(null)
-        beginTransaction.commit()
+        showScreen(AddUserFragment())
     }
 
     override fun showAllUsers(){
-//        if(drawerLayoutContent.isDrawerOpen(GravityCompat.START)){
-//            drawerLayoutContent.closeDrawers()
-//        }
+        if(drawerLayoutContent.isDrawerOpen(GravityCompat.START)){
+            drawerLayoutContent.closeDrawers()
+        }
+       showScreen(ShowAllUserListFragment())
+    }
 
+    fun Any.showScreen(fragment: Fragment){
         val beginTransaction = supportFragmentManager.beginTransaction()
-        beginTransaction.replace(main_content_view.id, ShowAllUserListFragment())
+        beginTransaction.replace(main_content_view.id, fragment )
         beginTransaction.addToBackStack(null)
         beginTransaction.commit()
-
     }
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

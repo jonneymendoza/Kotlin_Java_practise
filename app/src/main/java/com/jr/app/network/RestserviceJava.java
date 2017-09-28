@@ -1,5 +1,10 @@
 package com.jr.app.network;
 
+import android.support.v4.app.Fragment;
+import android.view.KeyEvent;
+import android.widget.EditText;
+import android.widget.TextView;
+
 import com.jr.app.models.ExampleData;
 
 import org.jetbrains.annotations.NotNull;
@@ -41,6 +46,19 @@ public class RestserviceJava implements RestServiceInterface {
         }).build();
 
         hello = "dsadsadsa";
+
+        EditText editText = new EditText(null);
+        editText.setOnEditorActionListener(new TextView.OnEditorActionListener() {
+            @Override
+            public boolean onEditorAction(TextView textView, int i, KeyEvent keyEvent) {
+                if(i == 2){
+                    int sup = 2;
+                }
+
+                return false;
+            }
+        });
+
 
         return okHttpClient;
     }

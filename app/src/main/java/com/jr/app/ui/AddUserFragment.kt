@@ -1,12 +1,17 @@
 package com.jr.app.ui
 
 
+import android.content.Context
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.util.Log
+import android.view.KeyEvent
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
+import android.view.inputmethod.InputMethodManager
+import android.widget.TextView
 import android.widget.Toast
 import com.jr.app.R
 import com.jr.app.models.ExampleData
@@ -38,12 +43,17 @@ class AddUserFragment : Fragment() {
             }else{
 
             }
-
         }
 
         override fun onFailure(call: Call<ResponseBody>?, t: Throwable?) {
             TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
         }
+    }
+
+    override fun onPause() {
+        super.onPause()
+        var imm : InputMethodManager = activity.getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
+        imm.hideSoftInputFromInputMethod(activity.currentFocus.windowToken,0)
     }
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -67,6 +77,12 @@ class AddUserFragment : Fragment() {
         add_user_button.setOnClickListener {
             RestService().addNewUserService(getData(), CallBackAdd()) }
 
+        info_txt.setOnEditorActionListener { textView, i, keyEvent ->
+            if (i == EditorInfo.IME_ACTION_DONE){
+                RestService().addNewUserService(getData(), CallBackAdd())
+            }
+            false
+        }
     }
 
     private fun getData(): ExampleData {
