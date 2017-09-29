@@ -1,5 +1,10 @@
 package com.jr.app.network
 
+import android.net.Uri
+import com.google.android.gms.tasks.OnFailureListener
+import com.google.android.gms.tasks.OnSuccessListener
+import com.google.firebase.storage.FirebaseStorage
+import com.google.firebase.storage.UploadTask
 import com.jr.app.BuildConfig
 import com.jr.app.models.ExampleData
 import okhttp3.Credentials
@@ -9,12 +14,14 @@ import okhttp3.ResponseBody
 import retrofit2.Callback
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
+import java.io.File
 
 /**
  * Created by jonathanrichards on 28/07/2017.
  */
 
 class RestService : RestServiceInterface {
+
 
     val authorizeHeader: String = "Authorization"
 
@@ -24,7 +31,7 @@ class RestService : RestServiceInterface {
 
     var callbackResponse: Callback<ResponseBody>? = null
 
-     fun addNewUserService(user: ExampleData, callback: Callback<ResponseBody>) {
+    fun addNewUserService(user: ExampleData, callback: Callback<ResponseBody>) {
         callbackResponse = callback;
         addUser(user)
 
@@ -50,6 +57,17 @@ class RestService : RestServiceInterface {
                 .build()
         val userService = retrofit.create(UsersService::class.java);
         userService.addUser(user).enqueue(callbackResponse)
+    }
+
+    override fun uploadProfileImage(imagePath: String, userId: String, onSuccessListener: OnSuccessListener<UploadTask.TaskSnapshot>, onFailureListener: OnFailureListener) {
+        val destinationPath = "profileImages/"
+        val storageRef = FirebaseStorage.getInstance().reference
+        val fileUri = Uri.fromFile(File(imagePath))
+        val imageProfileRef = storageRef.child(destinationPath + userId + ".jpg")
+
+        imageProfileRef.putFile(fileUri)
+                .addOnSuccessListener { onSuccessListener }
+                .addOnFailureListener(onFailureListener)
     }
 
     private val httpAuthClient: OkHttpClient

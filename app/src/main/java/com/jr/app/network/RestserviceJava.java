@@ -5,6 +5,9 @@ import android.view.KeyEvent;
 import android.widget.EditText;
 import android.widget.TextView;
 
+import com.google.android.gms.tasks.OnFailureListener;
+import com.google.android.gms.tasks.OnSuccessListener;
+import com.google.firebase.storage.UploadTask;
 import com.jr.app.models.ExampleData;
 
 import org.jetbrains.annotations.NotNull;
@@ -65,6 +68,11 @@ public class RestserviceJava implements RestServiceInterface {
 
     @Override
     public void getAllUsers(@NotNull Callback<List<ExampleData>> callback) {
+
+    }
+
+    @Override
+    public void uploadProfileImage(@NotNull String imageFilePath, @NotNull String userId, @NotNull OnSuccessListener<UploadTask.TaskSnapshot> onSuccessListener, @NotNull OnFailureListener onFailureListener) {
 
     }
 }

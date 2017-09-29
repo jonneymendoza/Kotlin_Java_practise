@@ -3,11 +3,13 @@ package com.jr.app.ui
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentActivity
+import android.support.v4.content.ContextCompat
 import android.support.v4.view.GravityCompat
 import com.jr.app.R
 import com.jr.app.presenters.interfaces.UserPresenter
 import kotlinx.android.synthetic.main.main_activity.*
 import kotlinx.android.synthetic.main.slide_menu.*
+import java.util.jar.Manifest
 
 /**
  * Created by jonathanrichards on 26/07/2017.
@@ -48,6 +50,9 @@ class MainActivity:UserPresenter, FragmentActivity() {
         setupNavigationView()
     }
 
+    private fun setupPermissions(){
+        if(ContextCompat.checkSelfPermission(this, Manifest. ))
+    }
     private fun setupNavigationView() {
         navigation.setNavigationItemSelectedListener { item ->
             when(item.itemId){
