@@ -4,6 +4,7 @@ package com.jr.app.ui
 import android.app.Activity.RESULT_OK
 import android.content.Context
 import android.content.Intent
+import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.net.Uri
 import android.os.Bundle
@@ -116,9 +117,10 @@ class AddUserFragment : Fragment() {
                 val columnIndex = cursor.getColumnIndex(filePath[0])
                 imgDecodableString = cursor.getString(columnIndex)
 
-                val bitmapOptions = BitmapFactory.Options()
-                bitmapOptions.inSampleSize = 2
-                picture.setImageBitmap(BitmapFactory.decodeFile(imgDecodableString, bitmapOptions))
+                val fullSizeImg = BitmapFactory.decodeFile(imgDecodableString)
+                val scaledImageBitmap =Bitmap.createScaledBitmap(fullSizeImg, 300,300, true)
+
+                picture.setImageBitmap(scaledImageBitmap)
             }
         }
 

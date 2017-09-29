@@ -1,6 +1,9 @@
 package com.jr.app.ui
 
+import android.Manifest
+import android.content.pm.PackageManager
 import android.os.Bundle
+import android.support.v4.app.ActivityCompat
 import android.support.v4.app.Fragment
 import android.support.v4.app.FragmentActivity
 import android.support.v4.content.ContextCompat
@@ -9,7 +12,6 @@ import com.jr.app.R
 import com.jr.app.presenters.interfaces.UserPresenter
 import kotlinx.android.synthetic.main.main_activity.*
 import kotlinx.android.synthetic.main.slide_menu.*
-import java.util.jar.Manifest
 
 /**
  * Created by jonathanrichards on 26/07/2017.
@@ -48,10 +50,16 @@ class MainActivity:UserPresenter, FragmentActivity() {
         setContentView(R.layout.main_activity)
         addNewUser()
         setupNavigationView()
+        setupPermissions()
     }
 
     private fun setupPermissions(){
-        if(ContextCompat.checkSelfPermission(this, Manifest. ))
+        if(ContextCompat.checkSelfPermission(this, android.Manifest.permission.WRITE_EXTERNAL_STORAGE)
+                != PackageManager.PERMISSION_GRANTED){
+
+            ActivityCompat.requestPermissions(this, arrayOf(Manifest.permission.WRITE_EXTERNAL_STORAGE),123)
+
+        }
     }
     private fun setupNavigationView() {
         navigation.setNavigationItemSelectedListener { item ->
