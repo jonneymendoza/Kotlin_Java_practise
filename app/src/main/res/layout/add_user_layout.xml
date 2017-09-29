@@ -21,6 +21,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:imeOptions="actionNext"
+        android:inputType="textCapSentences"
+        android:maxLines="1"
         android:hint="@string/hint_first_name" />
 
     <EditText
@@ -28,6 +30,8 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:imeOptions="actionNext"
+        android:maxLines="1"
+        android:inputType="textCapSentences"
         android:hint="@string/second_name" />
 
     <EditText
